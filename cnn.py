@@ -1,7 +1,6 @@
 # Convolutional Neural Network
 
 # Part 1 - Building the CNN
-
 # Importing Keras libraries and packages
 from keras.models import Sequential
 from keras.layers import Conv2D
