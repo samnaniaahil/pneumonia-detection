@@ -48,13 +48,13 @@ train_datagen = ImageDataGenerator(rescale = 1./255, shear_range = 0.2,  zoom_ra
 test_datagen = ImageDataGenerator(rescale = 1./255)
 
 # Create training set
-training_set = train_datagen.flow_from_directory(r'C:\Users\firoj\Downloads\P16-Convolutional-Neural-Networks\Convolutional_Neural_Networks\dataset\training_set', target_size = (64, 64), batch_size = 32, class_mode = 'binary')
+training_set = train_datagen.flow_from_directory(r'C:\Users\firoj\Downloads\P16-Convolutional-Neural-Networks\Convolutional_Neural_Networks\chest_xray\train_set', target_size = (64, 64), batch_size = 32, class_mode = 'binary')
 
 # Create test set
-test_set = test_datagen.flow_from_directory(r'C:\Users\firoj\Downloads\P16-Convolutional-Neural-Networks\Convolutional_Neural_Networks\dataset\test_set', target_size = (64, 64), batch_size = 32, class_mode = 'binary')
+test_set = test_datagen.flow_from_directory(r'C:\Users\firoj\Downloads\P16-Convolutional-Neural-Networks\Convolutional_Neural_Networks\chest_xray\test_set', target_size = (64, 64), batch_size = 32, class_mode = 'binary')
 
 # Specify parameters to train the CNN
-classifier.fit_generator(training_set, steps_per_epoch = 8000, epochs = 25, validation_data = test_set, validation_steps = 2000)
+classifier.fit_generator(training_set, steps_per_epoch = 1000, epochs = 3, validation_data = test_set, validation_steps = 2000)
 
 
 # Part 3 - Making new predictions
@@ -62,7 +62,7 @@ import numpy as np
 from keras.preprocessing import image 
 
 # Load a test image to make a predicition for
-test_image = image.load_img(r'C:\Users\firoj\Downloads\P16-Convolutional-Neural-Networks\Convolutional_Neural_Networks\dataset\single_prediction\cat_or_dog_1.jpg', target_size = (64, 64))
+test_image = image.load_img(r'C:\Users\firoj\Downloads\P16-Convolutional-Neural-Networks\Convolutional_Neural_Networks\chest_xray\single_prediction\pneumoniapositive.jpg', target_size = (64, 64))
 
 # Convert image into a 3d-array
 test_image = image.img_to_array(test_image)
@@ -77,6 +77,6 @@ result = classifier.predict(test_image)
 training_set.class_indices
 
 if result[0][0] == 1:
-    prediction = 'dog'
+    prediction = 'pneumonia positive'
 else:
-    prediction = 'cat'
+    prediction = 'pneumonia negative'
