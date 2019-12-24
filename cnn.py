@@ -8,10 +8,10 @@ from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
 
-# Initializing the CNN
+# Initialize CNN
 classifier = Sequential()
 
-# Step 1 - Adding the first convolution layer
+# Step 1 - Add first convolutional layer
 # Specify number of feature detectors and their dimensions, convert images to the same format, set activation function
 classifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'))
 
@@ -19,7 +19,7 @@ classifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'
 # Apply max pooling to feature maps
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
-# Adding a second convolutional layer
+# Add a second convolutional layer
 classifier.add(Conv2D(32, (3, 3), activation = 'relu'))
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
@@ -34,11 +34,11 @@ classifier.add(Dense(units = 128, activation = 'relu'))
 # Specify number of nodes and activation function for output layer
 classifier.add(Dense(units = 1, activation = 'sigmoid'))
 
-# Compiling the CNN
+# Compile CNN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
 
-# Part 2 - Fitting the CNN to the images
+# Part 2 - Fitting CNN to images
 from keras.preprocessing.image import ImageDataGenerator
 
 # Augment images in training set
@@ -53,7 +53,7 @@ training_set = train_datagen.flow_from_directory(r'C:\Users\firoj\Downloads\P16-
 # Create test set
 test_set = test_datagen.flow_from_directory(r'C:\Users\firoj\Downloads\P16-Convolutional-Neural-Networks\Convolutional_Neural_Networks\chest_xray\test_set', target_size = (64, 64), batch_size = 32, class_mode = 'binary')
 
-# Specify parameters to train the CNN
+# Specify parameters to train CNN
 classifier.fit_generator(training_set, steps_per_epoch = 1000, epochs = 3, validation_data = test_set, validation_steps = 2000)
 
 
